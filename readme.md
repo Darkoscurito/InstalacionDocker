@@ -2,14 +2,9 @@
 
 ## Requisitos previos
 
-| Herramienta | Versión mínima | Descarga |
-|-------------|---------------|---------|
-| Docker Desktop | 4.x | https://www.docker.com/products/docker-desktop |
-| Git | 2.x | https://git-scm.com |
-| VS Code | 1.x | https://code.visualstudio.com |
+Docker instalado
 
-> No es necesario tener PHP, Composer ni Node.js instalados en la máquina.
-> Todo corre dentro de los contenedores Docker.
+
 
 ---
 
@@ -32,17 +27,11 @@ PROYECTO FINAL/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/pension-la-herradura.git
-cd pension-la-herradura
+git clone https://github.com/Darkoscurito/InstalacionDocker.git
+cd PROYECTO FINAL
 ```
 
-### 2. Crear las carpetas necesarias
-
-```bash
-mkdir nginx php src
-```
-
-### 3. Levantar el contenedor PHP
+### 2. Levantar el contenedor PHP
 
 ```bash
 docker compose up -d php
@@ -56,16 +45,16 @@ docker compose ps
 
 Se deben ver los contenedores `postgres` en estado **Healthy** y `php` en estado **Running**.
 
-### 4. Instalar Laravel
+### 3. Instalar Laravel
 
 ```bash
 docker compose exec php composer create-project laravel/laravel .
 ```
 
 > Este comando descarga Laravel y todas sus dependencias dentro de `src/`.
-> Tarda unos minutos dependiendo de la conexión a internet.
 
-### 5. Configurar el archivo de entorno
+
+### 4. Configurar el archivo de entorno
 
 ```bash
 # Windows (PowerShell)
@@ -86,26 +75,40 @@ DB_USERNAME=hotel_user
 DB_PASSWORD=hotel_pass
 ```
 
-> ⚠️ El valor de `DB_HOST` debe ser `postgres` (nombre del servicio en Docker),
+> El valor de `DB_HOST` debe ser `postgres` (nombre del servicio en Docker),
 > no `localhost`.
 
-### 6. Generar la clave de la aplicación
 
-```bash
-docker compose exec php php artisan key:generate
-```
-
-### 7. Levantar el resto de servicios
+### 5. Levantar el resto de servicios
 
 ```bash
 docker compose up -d --build
 ```
 
-### 8. Ejecutar las migraciones
+> Si hay problemas de puertos tendrás que cambiar con el archivo docker-compose.yml
+
+### 6. Ejecutar las migraciones
 
 ```bash
 docker compose exec php php artisan migrate
 ```
+
+### 7. Instalar dependencias
+
+```bash
+cd src
+npm install
+```
+
+> Instalar dependencias (Vue, Bootstrap, Vite...)
+
+### 8. Compilar modo desarrollo
+
+```bash
+npm run dev
+```
+
+
 
 ---
 
@@ -128,33 +131,4 @@ docker compose exec php php artisan migrate
 
 ---
 
-## Solución de problemas frecuentes
-
-**"Project directory is not empty"**
-
-La carpeta `src/` tiene archivos de una instalación anterior. Borrar el contenido e intentar de nuevo:
-
-```bash
-# Windows (PowerShell)
-Remove-Item -Recurse -Force src\*
-
-# Mac / Linux
-rm -rf src/*
-```
-
-**Los contenedores no arrancan**
-
-Ver los logs del contenedor con error:
-
-```bash
-docker compose logs php
-docker compose logs postgres
-```
-
-**Laravel no conecta con la base de datos**
-
-Verificar que `DB_HOST=postgres` en el `.env` y que el contenedor de PostgreSQL está en estado Healthy:
-
-```bash
-docker compose ps
-```
+Con esto debes conseugir de que se puede ver welcome.blade.php.
