@@ -12,12 +12,12 @@ Docker instalado
 
 ```
 PROYECTO FINAL/
-├── docker-compose.yml       ← Orquestación de contenedores
+├── docker-compose.yml       ← Contenedores
 ├── nginx/
 │   └── default.conf         ← Configuración del servidor web
 ├── php/
-│   └── Dockerfile           ← Imagen PHP 8.3 con extensiones de Laravel
-└── src/                     ← Código fuente de Laravel (se genera en el paso 4)
+│   └── Dockerfile           ← PHP con la extensión Laravel
+└── src/                     ← Esa carpeta se consigue con el paso 4
 ```
 
 ---
@@ -112,11 +112,11 @@ npm run dev
 
 ---
 
-## URLs de acceso
+## URLS de acceso
 
 | Servicio | URL | Credenciales |
 |---------|-----|-------------|
-| Aplicación web | http://localhost:8080 | — |
+| Aplicación web | http://localhost:8080
 | pgAdmin (base de datos) | http://localhost:8081 | admin@admin.com / admin |
 
 **Conexión a la base de datos desde pgAdmin:**
@@ -131,4 +131,4 @@ npm run dev
 
 ---
 
-Con esto debes conseugir de que se puede ver welcome.blade.php.
+Con esto debes conseguir de que se puede ver welcome.blade.php usando http://localhost:8080.
